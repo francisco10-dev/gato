@@ -45,7 +45,7 @@ class CatState extends State<Cat> {
           jugadorActual = jugadorActual == '👻' ? '⭕' : '👻';
         } else {
           setState(() {
-            lineaGanadora.isNotEmpty ? winner = jugadorActual : winner = 'empate';
+            winner = lineaGanadora.isNotEmpty ? jugadorActual : 'Empate';
           });
         }
       });
@@ -54,9 +54,9 @@ class CatState extends State<Cat> {
 
   bool verificarGanador(String jugador, int index) {
     final List<List<int>> lines = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8], 
-      [0, 3, 6], [1, 4, 7], [2, 5, 8], 
-      [0, 4, 8], [2, 4, 6] 
+      [0, 1, 2], [3, 4, 5], [6, 7, 8],
+      [0, 3, 6], [1, 4, 7], [2, 5, 8],
+      [0, 4, 8], [2, 4, 6]
     ];
 
     for (var line in lines) {
@@ -105,14 +105,14 @@ class CatState extends State<Cat> {
                 )
               : Container(),
           const SizedBox(height: 20),
-          winner != ''
+          winner.isNotEmpty
               ? Builder(
                   builder: (context) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       Alert(
                         context: context,
-                        title: 'GANADOR',
-                        desc: winner == '👻' ? 'JUGADOR 1 $winner' : 'JUGADOR 2 $winner',
+                        title: winner == 'Empate' ? 'EMPATE' : 'GANADOR',
+                        desc: winner == 'Empate' ? 'Es un empate' : (winner == '👻' ? 'JUGADOR 1 $winner' : 'JUGADOR 2 $winner'),
                         buttons: [
                           DialogButton(child: const Text('OK'), onPressed: () => Navigator.pop(context))
                         ]
